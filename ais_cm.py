@@ -50,9 +50,6 @@ class AntibodyIterator:
 
 # Functions definition
 
-def func(antibody):
-    antibody.sort(key=antibody._countermeasure.asset_id)
-
 def calculate_benefit(cm):
     cm.benefit=(9*cm.eff)**(1-(cm.imp+cm.cost)/2)+1
 
