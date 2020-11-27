@@ -65,15 +65,11 @@ def calculate_risk(threat, asset, benefit=1):
 def calculate_fitness(risk, asset):
     return risk-10*(1-asset.criticality)
 
-def multiple_cms(antibody):
-    i=0
-    for cm in antibody:
-        ant[i].asset.id
 
-def has_equal_element(antibody1):
+def has_equal_element(antibody):
     a=[]
     occurences = []
-    for cm in antibody1:
+    for cm in antibody:
         a.append(cm.asset.id)
     for id in a:
         count=0
@@ -131,11 +127,6 @@ antibodies = [ant1,ant2,ant3]
 for ant in antibodies:
     for cm in ant:
         print(cm.cost)
-for cm in ant4:
-    print(cm.asset.criticality)
-print(ant4[0].asset.criticality)
-
-print(has_equal_element(ant4))
 
 print(calculate_risk(t1,a1))
 print(calculate_risk(t1,a1,cm1.benefit))
