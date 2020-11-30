@@ -78,7 +78,7 @@ def calculate_risk(threat, asset, benefit=1):
 def calculate_fitness(risk, asset):
     return risk-10*(1-asset.criticality)
 
-def calculate_benefit_sergio(asset_dict,assets):
+def calculate_benefit_prep(asset_dict,assets):
     asset_benefit=dict()
 
     for asset in assets:
@@ -117,7 +117,7 @@ def determine_affinity(threats, assets, antibodies):
                     for cm in ant._countermeasures:
                         calculate_benefit(cm)
                     asset_dict = has_equal_element(ant,assets)
-                    asset_benefit=calculate_benefit_sergio(asset_dict,assets)
+                    asset_benefit=calculate_benefit_prep(asset_dict,assets)
                     print(asset_benefit)
                     print("Risk:",calculate_risk(t,ass,asset_benefit[ass.id])) 
                     if ant.id in risk_dict.keys():
