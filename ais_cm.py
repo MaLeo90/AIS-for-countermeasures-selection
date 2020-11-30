@@ -2,10 +2,12 @@
 # Classes definition
 
 class threat:
-    def __init__(self, imp, prob):
+    def __init__(self, id, imp, prob, asset_id):
         super().__init__()
+        self.id=id
         self.imp = imp
         self.prob = prob
+        self.asset_id=asset_id
 
 class asset:
     def __init__(self, id, criticality):
@@ -26,15 +28,19 @@ class countermeasure:
         self.maturity = maturity
 
 class antibody:
-    def __init__(self):
-        self._countermeasure = list()
+    def __init__(self, id, fitness=10):
+        self._countermeasures = list()
+        self.id = id
+        self.fitness=fitness
 
     def addCountermeasure(self, cm):
-        self._countermeasure += cm
+#        self._countermeasure += cm
+        self._countermeasures.append(cm) 
 
-    def __iter__(self):
+#  def __iter__(self):
         ''' Returns the Iterator object '''
-        return AntibodyIterator(self)
+'''       
+            return AntibodyIterator(self)
 
 class AntibodyIterator:
     def __init__(self, antibody):
@@ -47,14 +53,24 @@ class AntibodyIterator:
             self._index +=1
             return result
         raise StopIteration
+'''
+
+
+
 
 # Functions definition
 
 def calculate_benefit(cm):
     cm.benefit=(9*cm.eff)**(1-(cm.imp+cm.cost)/2)+1
-
-def calculate_combined_benefit(*benefit):
-    return (max(*benefit)+min(sum(*benefit),10))/2
+    
+def calculate_combined_benefit(cm_list):
+    max_value=0
+    sum_value=0
+    for cm in cm_list:
+        sum_value+=cm.benefit
+        if(cm.benefit>max_value):
+            max_value=cm.benefit
+    return (max_value+min(sum_value,10))/2
 
 def calculate_risk(threat, asset, benefit=1):
     return (threat.prob*threat.imp*asset.criticality)/benefit
@@ -62,43 +78,74 @@ def calculate_risk(threat, asset, benefit=1):
 def calculate_fitness(risk, asset):
     return risk-10*(1-asset.criticality)
 
+def calculate_benefit_sergio(asset_dict,assets):
+    asset_benefit=dict()
 
-def has_equal_element(antibody):
-    a=[]
-    occurences = []
-    for cm in antibody:
-        a.append(cm.asset.id)
-    for id in a:
-        count=0
-        for x in a:
-            if x == a:
-                count +=1
-            occurences.append(count)
-    duplicates = set()
-    index=0
-    while index < len(a):
-        if occurences[index]!=1:
-            duplicates.add(a[index])
-        index +=1
-    return duplicates
+    for asset in assets:
+        asset_benefit[asset.id]=1
 
-def determine_affinity(threat, asset, antibodies):
-    i=0
-    for t in threat:
-        for ass in asset:
-            for ant in antibodies:
-                for cm in ant:
-                    calculate_benefit(cm)
-                if(has_equal_element(ant)!=0):
-                    calculate_combined_benefit(ant)
-            
+    for asset_id in asset_dict.keys():
+        asset_benefit[asset_id] = 0
+        asset_benefit[asset_id]=calculate_combined_benefit(asset_dict[asset_id])
+
+    return asset_benefit
+
+
+def has_equal_element(antibody, assets):
+    asset_dict = dict() 
+
+    for cm in antibody._countermeasures:
+        if cm.asset_id.id in asset_dict.keys():
+            asset_dict[cm.asset_id.id].append(cm)
+        else:
+            asset_dict[cm.asset_id.id] = []
+            asset_dict[cm.asset_id.id].append(cm)
+       
+    #for key in [key for key in asset_dict if len(asset_dict[key]) == 1]: del asset_dict[key]
+    return asset_dict
+
+def determine_affinity(threats, assets, antibodies):
+    risk = []
+    risk_dict = dict()
+    for t in threats:
+        print("Threat:", t.id)
+        for ass in assets:
+           if(t.asset_id == ass.id):
+                print("Asset:",ass.id)
+                for ant in antibodies:
+                    print("Antibody:",ant.id)
+                    for cm in ant._countermeasures:
+                        calculate_benefit(cm)
+                    asset_dict = has_equal_element(ant,assets)
+                    asset_benefit=calculate_benefit_sergio(asset_dict,assets)
+                    print(asset_benefit)
+                    print("Risk:",calculate_risk(t,ass,asset_benefit[ass.id])) 
+                    if ant.id in risk_dict.keys():
+                        risk_dict[ant.id].append(calculate_risk(t,ass,asset_benefit[ass.id]))
+                    else:
+                        risk_dict[ant.id]= []
+                        risk_dict[ant.id].append(calculate_risk(t,ass,asset_benefit[ass.id]))
+    print(risk_dict)
+    total_affinity=0
+    count=0
+    
+    for ass in assets:
+        for ant.id in risk_dict.keys():
+            ant.fitness=calculate_fitness(risk_dict[ant.id][ass.id-1],ass)
+            total_affinity+=abs(ant.fitness)
+    print(total_affinity)
+    avg_affinitity=total_affinity/len(risk_dict)
+    print(avg_affinitity)
 
 # Main program
 
 a1 = asset(1,0.85)
 a2 = asset(2,0.7)
-t1= threat(8.8,0.95)
-t2= threat(7.5,0.7)
+t1= threat(1,8.8,0.95,1)
+t2= threat(2,7.5,0.7,2)
+threats = [t1,t2]
+assets = [a1,a2]
+
 
 cm1 = countermeasure(1,0.7,0.4,0.2,a1)
 cm2 = countermeasure(2,0.8,0.7,0.4,a2)
@@ -106,25 +153,28 @@ cm3 = countermeasure(3,0.6,0.5,0.5,a1)
 cm4 = countermeasure(4,0.5,0.3,0.2,a2)
 cm5 = countermeasure(5,0.3,0.1,0.2,a1)
 cm6 = countermeasure(6,0.9,0.2,0.2,a2)
-print(cm1.cost)
-calculate_benefit(cm1)
-calculate_benefit(cm2)
-calculate_benefit(cm3)
-print(calculate_combined_benefit([cm1.benefit,cm2.benefit,cm3.benefit]))
-ant1 = antibody()
-ant1.addCountermeasure([cm1,cm2])
+#print(cm1.cost)
+#print(calculate_combined_benefit([cm1.benefit,cm2.benefit,cm3.benefit]))
+ant1 = antibody(1)
 
-ant2 = antibody()
-ant2.addCountermeasure([cm3,cm4])
-ant3 = antibody()
-ant3.addCountermeasure([cm5,cm6])
-ant4 = [cm1,cm1,cm2,cm2,cm1,cm1]
-func(ant1)
+ant1.addCountermeasure(cm1)
+ant1.addCountermeasure(cm2)
+
+ant2 = antibody(2)
+ant2.addCountermeasure(cm3)
+ant2.addCountermeasure(cm4)
+ant3 = antibody(3)
+ant3.addCountermeasure(cm5)
+ant3.addCountermeasure(cm6)
+
 antibodies = [ant1,ant2,ant3]
 for ant in antibodies:
-    for cm in ant:
-        print(cm.cost)
+    print(ant.id)
+    for cm in ant._countermeasures:
+        print("cm",cm.id)
+    print("___")
 
-print(calculate_risk(t1,a1))
-print(calculate_risk(t1,a1,cm1.benefit))
-print(calculate_fitness(calculate_risk(t1,a1), a1))
+determine_affinity(threats, assets, antibodies)
+#print(calculate_risk(t1,a1))
+#print(calculate_risk(t1,a1,cm1.benefit))
+#print(calculate_fitness(calculate_risk(t1,a1), a1))
