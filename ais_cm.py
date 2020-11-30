@@ -1,3 +1,6 @@
+#Global variables
+k=1
+#avg_fitness=10
 
 # Classes definition
 
@@ -105,7 +108,6 @@ def has_equal_element(antibody, assets):
     return asset_dict
 
 def determine_affinity(threats, assets, antibodies):
-    risk = []
     risk_dict = dict()
     for t in threats:
         print("Threat:", t.id)
@@ -125,17 +127,33 @@ def determine_affinity(threats, assets, antibodies):
                     else:
                         risk_dict[ant.id]= []
                         risk_dict[ant.id].append(calculate_risk(t,ass,asset_benefit[ass.id]))
+    
     print(risk_dict)
     total_affinity=0
-    count=0
-    
     for ass in assets:
         for ant.id in risk_dict.keys():
-            ant.fitness=calculate_fitness(risk_dict[ant.id][ass.id-1],ass)
-            total_affinity+=abs(ant.fitness)
+            risk_dict[ant.id][ass.id-1]=abs(calculate_fitness(risk_dict[ant.id][ass.id-1],ass))
+            total_affinity+=risk_dict[ant.id][ass.id-1]
+    for ant.id in risk_dict.keys():
+        antibodies[ant.id].fitness=sum(risk_dict[ant.id])
     print(total_affinity)
+    print(risk_dict)
     avg_affinitity=total_affinity/len(risk_dict)
-    print(avg_affinitity)
+    print("Avg affinity:",avg_affinitity)
+    for ant in antibodies:
+        print(ant.id)
+        print(ant.fitness)
+
+def myfunc(e):
+    return e.fitness
+
+def clone_antibodies(antibodies):
+    for ant in antibodies:
+        print(ant.fitness)
+    antibodies.sort(key=myfunc)
+    for ant in antibodies:
+        print(ant.fitness)
+    
 
 # Main program
 
@@ -167,7 +185,7 @@ ant3 = antibody(3)
 ant3.addCountermeasure(cm5)
 ant3.addCountermeasure(cm6)
 
-antibodies = [ant1,ant2,ant3]
+antibodies = [ant2,ant1,ant3]
 for ant in antibodies:
     print(ant.id)
     for cm in ant._countermeasures:
@@ -175,6 +193,7 @@ for ant in antibodies:
     print("___")
 
 determine_affinity(threats, assets, antibodies)
+clone_antibodies(antibodies)
 #print(calculate_risk(t1,a1))
 #print(calculate_risk(t1,a1,cm1.benefit))
 #print(calculate_fitness(calculate_risk(t1,a1), a1))
