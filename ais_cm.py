@@ -3,13 +3,14 @@ import random
 import copy
 
 # Global variables
-k=5
+k=2
 avg_affinity=10
 cardinality_solution=0
 N_antibodies=20
-N_assets=10
-N_cms=N_assets*5
-N_threats=10
+N_assets=5
+N_cms=N_assets*10
+N_threats=5
+N_iterations=100
 
 # Classes definition
 
@@ -54,7 +55,7 @@ def generate_assets(N_assets):
     id = 0
     assets = []
     while(id<N_assets):
-        a = asset(id,random.random())
+        a = asset(id,random.uniform(0.5,1))
         assets.append(a)
         id+=1
     return assets
@@ -68,7 +69,7 @@ def generate_countermeasures(N_countermeasures,assets):
         a_id.add(a.id)
     while (id<N_countermeasures):
         x = random.sample(a_id,1)
-        while(i < 5):
+        while(i < 10):
             cm = countermeasure(id,random.random(),random.random(),random.random(),x[0])
             cms.append(cm)
             id+=1
@@ -85,7 +86,7 @@ def generate_threats(N_threats,assets):
         a_id.add(a.id)
     while (id<N_threats):
         x = random.sample(a_id,1)
-        t = threat(id,random.random(),random.random(),x[0])
+        t = threat(id,random.uniform(5,10),random.uniform(0.5,1),x[0])
         a_id.remove(x[0])
         threats.append(t)
         id+=1
@@ -158,13 +159,13 @@ def determine_affinity(threats, assets, antibodies):
     risk_dict = dict()
     global avg_affinity
     for t in threats:
-        print("Threat:", t.id)
+        #print("Threat:", t.id)
         for ass in assets:
            if(t.asset_id == ass.id):
-                print("Asset:",ass.id)
+                #print("Asset:",ass.id)
                 for ant in antibodies:
                     if (ant.fitness==10):
-                        print("Antibody:",ant.id)
+                        #print("Antibody:",ant.id)
                         for cm in ant._countermeasures:
                             if cm.benefit == 1:
                                 calculate_benefit(cm)
@@ -178,7 +179,7 @@ def determine_affinity(threats, assets, antibodies):
                             risk_dict[ant.id]= []
                             risk_dict[ant.id].append(calculate_risk(t,ass,asset_benefit[ass.id]))
     
-    print(risk_dict)
+    #print(risk_dict)
     total_affinity=0
     for t in threats:
         for ass in assets:
@@ -206,11 +207,11 @@ def clone_antibodies(antibodies):
 def determine_affinity_clone(threats, assets, clone):
     risk_dict = dict()
     for t in threats:
-        print("Threat:", t.id)
+        #print("Threat:", t.id)
         for ass in assets:
            if(t.asset_id == ass.id):
-                print("Asset:",ass.id)
-                print("Clone:",clone.id)
+                #print("Asset:",ass.id)
+                #print("Clone:",clone.id)
                 for cm in clone._countermeasures:
                     if cm.benefit == 1:
                         calculate_benefit(cm)
@@ -260,10 +261,11 @@ def mutate_clones(antibodies, clones, cm_tot, threats, assets):
         if(P>0.50):
             add_random_cm(clone,cm_tot,threats)
         else:
-            remove_random_cm(clone)
+            if(len(clone._countermeasures)>0):
+                remove_random_cm(clone)
         if determine_affinity_clone(threats,assets,clone)>avg_affinity:
             print("remove clone")
-            k = k-1
+            #k = k-1
         else:
             print("add clone to solution set")
             clone.id=cardinality_solution
@@ -273,12 +275,13 @@ def mutate_clones(antibodies, clones, cm_tot, threats, assets):
 def replace_antibodies(antibodies, threats, cm_tot):
     antibodies.sort(key=myfunc)
     antibodies_reduced = copy.deepcopy(antibodies[0:(len(antibodies)-k)])
-    antibodies_new = generate_antibodies(k, threats, cm_tot)
-    return antibodies_reduced + antibodies_new
+    #antibodies_new = generate_antibodies(k, threats, cm_tot)
+    return antibodies_reduced #+ antibodies_new
 
 
 
 # Main program
+random.seed()
 
 assets = generate_assets(N_assets)
 for ass in assets:
@@ -308,11 +311,11 @@ for ant in antibodies:
 '''
 a1 = asset(0,0.85)
 a2 = asset(1,0.7)
-a3 = asset(2,0.5)
+#a3 = asset(2,0.5)
 t1= threat(0,8.8,0.95,0)
 t2= threat(1,7.5,0.7,1)
 threats = [t1,t2]
-assets = [a1,a2,a3]
+assets = [a1,a2]
 
 
 cm1 = countermeasure(1,0.7,0.4,0.2,0)
@@ -320,11 +323,22 @@ cm2 = countermeasure(2,0.8,0.7,0.4,1)
 cm3 = countermeasure(3,0.6,0.5,0.5,0)
 cm4 = countermeasure(4,0.5,0.3,0.2,1)
 cm5 = countermeasure(5,0.3,0.1,0.2,0)
-cm6 = countermeasure(6,0.9,0.2,0.2,1)
+cm6 = countermeasure(6,0.5,0.3,0.5,1)
+cm7 = countermeasure(7,0.8,0.5,0.8,0)
+cm8 = countermeasure(8,0.7,0.3,0.7,1)
+cm9 = countermeasure(9,0.3,0.3,0.1,0)
+cm10 = countermeasure(10,1,0,0,1)
+cm11 = countermeasure(11,1,0,0,0)
 
-cm_a1 = [cm1, cm3, cm5]
-cm_a2 = [cm2, cm4, cm6]
-cm_tot = cm_a1 + cm_a2
+calculate_benefit(cm10)
+calculate_benefit(cm11)
+
+print("Benefit 10",cm10.benefit)
+print("Benefit 11",cm11.benefit)
+
+cm_a1 = [cm1, cm3, cm5, cm7, cm9, cm11]
+cm_a2 = [cm2, cm4, cm6, cm8, cm10]
+countermeasures = cm_a1 + cm_a2
 #print(cm1.cost)
 #print(calculate_combined_benefit([cm1.benefit,cm2.benefit,cm3.benefit]))
 
@@ -340,40 +354,36 @@ ant3 = antibody(2)
 ant3.addCountermeasure(cm5)
 ant3.addCountermeasure(cm6)
 
+ant4 = antibody(3)
+ant4.addCountermeasure(cm7)
+ant4.addCountermeasure(cm8)
 
-antibodies = [ant1,ant2,ant3]
+ant5 = antibody(4)
+ant5.addCountermeasure(cm11)
+ant5.addCountermeasure(cm10)
+
+antibodies = [ant1,ant2,ant3,ant4,ant5]
 
 for ant in antibodies:
     print("antibody:")
     for cm in ant._countermeasures:
         print(cm.id)
 '''
-
-determine_affinity(threats, assets, antibodies)
-for ant in antibodies:
-    print("antibody:",ant.id)
-    print(ant.fitness)
-
-clones = clone_antibodies(antibodies)
-mutate_clones(antibodies, clones, countermeasures, threats, assets)
-solution = replace_antibodies(antibodies, threats, countermeasures)
-for ant in solution:
-    print("antibody:",ant.id)
-    for cm in ant._countermeasures:
-        print(cm.id)
-
-'''
-determine_affinity(threats, assets, solution)
-for ant in solution:
-    print("antibody:",ant.id)
-    print(ant.fitness)
-
-clones = clone_antibodies(solution)
-print("Clone:",clones[0].id)
-mutate_clones(solution, clones, cm_tot, threats, assets)
-solution1 = replace_antibodies(solution, threats, cm_tot)
-for ant in solution1:
-    print("antibody:",ant.id)
-    for cm in ant._countermeasures:
-        print(cm.id)
-'''
+tot = 0
+for t in threats:
+    for a in assets:
+        tot+=calculate_risk(t,a)
+print("Initial total risk:",tot)
+i = 0
+while (i<N_iterations):
+    print("Iteration:", i)
+    determine_affinity(threats, assets, antibodies)
+    clones = clone_antibodies(antibodies)
+    mutate_clones(antibodies, clones, countermeasures, threats, assets)
+    solution = replace_antibodies(antibodies, threats, countermeasures)
+    i+=1
+    
+print("Better solution:")
+print(solution[0].fitness)
+for cm in solution[0]._countermeasures:
+    print(cm.id)
