@@ -3,12 +3,13 @@ import random
 import copy
 
 # Global variables
-k=2
+k=4
 avg_affinity=10
 cardinality_solution=0
 N_antibodies=20
 N_assets=5
-N_cms=N_assets*10
+N_cms_per_asset=10
+N_cms=N_assets*N_cms_per_asset
 N_threats=5
 N_iterations=100
 
@@ -69,7 +70,7 @@ def generate_countermeasures(N_countermeasures,assets):
         a_id.add(a.id)
     while (id<N_countermeasures):
         x = random.sample(a_id,1)
-        while(i < 10):
+        while(i < N_cms_per_asset):
             cm = countermeasure(id,random.random(),random.random(),random.random(),x[0])
             cms.append(cm)
             id+=1
@@ -265,7 +266,7 @@ def mutate_clones(antibodies, clones, cm_tot, threats, assets):
                 remove_random_cm(clone)
         if determine_affinity_clone(threats,assets,clone)>avg_affinity:
             print("remove clone")
-            #k = k-1
+            k = k-1
         else:
             print("add clone to solution set")
             clone.id=cardinality_solution
@@ -275,8 +276,8 @@ def mutate_clones(antibodies, clones, cm_tot, threats, assets):
 def replace_antibodies(antibodies, threats, cm_tot):
     antibodies.sort(key=myfunc)
     antibodies_reduced = copy.deepcopy(antibodies[0:(len(antibodies)-k)])
-    #antibodies_new = generate_antibodies(k, threats, cm_tot)
-    return antibodies_reduced #+ antibodies_new
+    antibodies_new = generate_antibodies(k, threats, cm_tot)
+    return antibodies_reduced + antibodies_new
 
 
 
