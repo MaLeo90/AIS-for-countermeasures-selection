@@ -1,6 +1,7 @@
 # Imports
 import random
 import copy
+import time
 
 # Global variables
 k=4
@@ -375,6 +376,8 @@ for t in threats:
     for a in assets:
         tot+=calculate_risk(t,a)
 print("Initial total risk:",tot)
+
+start_time = time.time()
 i = 0
 while (i<N_iterations):
     print("Iteration:", i)
@@ -383,7 +386,9 @@ while (i<N_iterations):
     mutate_clones(antibodies, clones, countermeasures, threats, assets)
     solution = replace_antibodies(antibodies, threats, countermeasures)
     i+=1
-    
+
+print("--- %s seconds ---" % (time.time() - start_time))
+
 print("Better solution:")
 print(solution[0].fitness)
 for cm in solution[0]._countermeasures:
