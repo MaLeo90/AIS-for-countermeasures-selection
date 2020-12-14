@@ -4,15 +4,15 @@ import copy
 import time
 
 # Global variables
-k=4
 avg_affinity=10
 cardinality_solution=0
-N_antibodies=20
-N_assets=5
-N_cms_per_asset=10
+N_antibodies=3
+N_assets=2
+N_cms_per_asset=5
 N_cms=N_assets*N_cms_per_asset
-N_threats=5
-N_iterations=100
+N_threats=2
+N_iterations=10
+k=N_antibodies//3
 
 # Classes definition
 
@@ -267,16 +267,17 @@ def mutate_clones(antibodies, clones, cm_tot, threats, assets):
                 remove_random_cm(clone)
         if determine_affinity_clone(threats,assets,clone)>avg_affinity:
             print("remove clone")
-            k = k-1
+            #k = k-1
         else:
             print("add clone to solution set")
             clone.id=cardinality_solution
             antibodies.append(clone)
             cardinality_solution+=1
+            k=k+1
 
 def replace_antibodies(antibodies, threats, cm_tot):
     antibodies.sort(key=myfunc)
-    antibodies_reduced = copy.deepcopy(antibodies[0:(len(antibodies)-k)])
+    antibodies_reduced = copy.deepcopy(antibodies[0:(N_antibodies-k)])
     antibodies_new = generate_antibodies(k, threats, cm_tot)
     return antibodies_reduced + antibodies_new
 
@@ -380,6 +381,7 @@ print("Initial total risk:",tot)
 start_time = time.time()
 i = 0
 while (i<N_iterations):
+    k=N_antibodies//3
     print("Iteration:", i)
     determine_affinity(threats, assets, antibodies)
     clones = clone_antibodies(antibodies)
