@@ -1,0 +1,200 @@
+Exec time:  9.970378637313843
+Fitness_best_solution:  3.836981144730244
+Exec time:  10.264139413833618
+Fitness_best_solution:  7.07678206705571
+Exec time:  9.918092966079712
+Fitness_best_solution:  7.048091071541744
+Exec time:  9.668156862258911
+Fitness_best_solution:  8.8600324354052
+Exec time:  10.472137451171875
+Fitness_best_solution:  5.935962851873447
+Exec time:  10.325797319412231
+Fitness_best_solution:  5.699153530427561
+Exec time:  10.044136047363281
+Fitness_best_solution:  6.548702902651754
+Exec time:  9.281615495681763
+Fitness_best_solution:  6.226765941978351
+Exec time:  10.794201135635376
+Fitness_best_solution:  4.323360614307921
+Exec time:  10.666781663894653
+Fitness_best_solution:  5.681318730599397
+Exec time:  10.249031782150269
+Fitness_best_solution:  9.166622238088625
+Exec time:  8.737748861312866
+Fitness_best_solution:  5.486569144436181
+Exec time:  9.974655866622925
+Fitness_best_solution:  5.854980384801175
+Exec time:  10.2029447555542
+Fitness_best_solution:  4.6612775866144744
+Exec time:  10.147011280059814
+Fitness_best_solution:  7.019677790122347
+Exec time:  10.398821830749512
+Fitness_best_solution:  5.680208697655905
+Exec time:  9.09715747833252
+Fitness_best_solution:  4.485395286631172
+Exec time:  12.588209629058838
+Fitness_best_solution:  6.58298485934661
+Exec time:  9.842941284179688
+Fitness_best_solution:  6.912724208873082
+Exec time:  10.967342376708984
+Fitness_best_solution:  4.65679222316216
+Exec time:  9.977394580841064
+Fitness_best_solution:  4.884744870357819
+Exec time:  10.112068176269531
+Fitness_best_solution:  7.272521042099172
+Exec time:  9.30673861503601
+Fitness_best_solution:  7.557744494531149
+Exec time:  9.672399044036865
+Fitness_best_solution:  8.218253617923779
+Exec time:  10.541532516479492
+Fitness_best_solution:  5.46164049351539
+Exec time:  8.679768800735474
+Fitness_best_solution:  5.410093317226224
+Exec time:  10.478326082229614
+Fitness_best_solution:  5.492671483335076
+Exec time:  10.06815767288208
+Fitness_best_solution:  5.996683470418298
+Exec time:  10.95336651802063
+Fitness_best_solution:  6.2982771142514276
+Exec time:  10.965558528900146
+Fitness_best_solution:  7.870257929358656
+Exec time:  10.667842864990234
+Fitness_best_solution:  5.54550159805124
+Exec time:  9.314255952835083
+Fitness_best_solution:  7.176571144814788
+Exec time:  9.140538692474365
+Fitness_best_solution:  9.514793990130308
+Exec time:  11.790635585784912
+Fitness_best_solution:  6.23314116118661
+Exec time:  11.21204924583435
+Fitness_best_solution:  7.031084552531574
+Exec time:  12.405837059020996
+Fitness_best_solution:  8.408495176460843
+Exec time:  10.275647401809692
+Fitness_best_solution:  8.283369625487742
+Exec time:  9.443464040756226
+Fitness_best_solution:  8.340956154288321
+Exec time:  9.375373840332031
+Fitness_best_solution:  5.966619693516601
+Exec time:  10.007513999938965
+Fitness_best_solution:  2.4614673341537885
+Exec time:  11.639590501785278
+Fitness_best_solution:  5.928125091323447
+Exec time:  11.50263237953186
+Fitness_best_solution:  6.003547047804744
+Exec time:  19.82650375366211
+Fitness_best_solution:  5.6742795445496155
+Exec time:  10.11731243133545
+Fitness_best_solution:  7.201631662294165
+Exec time:  11.360690355300903
+Fitness_best_solution:  5.346225305043687
+Exec time:  10.550712585449219
+Fitness_best_solution:  7.344294604212871
+Exec time:  10.205728769302368
+Fitness_best_solution:  7.824559817822991
+Exec time:  10.934237957000732
+Fitness_best_solution:  7.726327754733628
+Exec time:  10.115913152694702
+Fitness_best_solution:  4.873436075664792
+Exec time:  10.777965545654297
+Fitness_best_solution:  6.727642947308329
+Exec time:  10.781980037689209
+Fitness_best_solution:  4.658466060712877
+Exec time:  10.187966346740723
+Fitness_best_solution:  5.981055175914387
+Exec time:  8.795104265213013
+Fitness_best_solution:  6.24630551938019
+Exec time:  8.908921241760254
+Fitness_best_solution:  7.144929369161348
+Exec time:  10.406969547271729
+Fitness_best_solution:  5.541487137198835
+Exec time:  10.821501970291138
+Fitness_best_solution:  6.752382194320308
+Exec time:  10.016796350479126
+Fitness_best_solution:  5.557175488135904
+Exec time:  8.722851276397705
+Fitness_best_solution:  7.200087968571735
+Exec time:  10.674386978149414
+Fitness_best_solution:  7.329450363315409
+Exec time:  9.972010135650635
+Fitness_best_solution:  7.058939542646611
+Exec time:  14.01083493232727
+Fitness_best_solution:  5.9404368033478505
+Exec time:  16.900296211242676
+Fitness_best_solution:  6.726256097010358
+Exec time:  10.664936304092407
+Fitness_best_solution:  6.314001933737581
+Exec time:  9.032495737075806
+Fitness_best_solution:  7.998178638437737
+Exec time:  10.386554479598999
+Fitness_best_solution:  4.805556063550659
+Exec time:  9.977132558822632
+Fitness_best_solution:  5.88677844859256
+Exec time:  9.686937093734741
+Fitness_best_solution:  9.409916298432575
+Exec time:  10.23778748512268
+Fitness_best_solution:  7.516030883198532
+Exec time:  10.166836023330688
+Fitness_best_solution:  6.6587029322276186
+Exec time:  9.319069147109985
+Fitness_best_solution:  6.669843538607268
+Exec time:  11.152873039245605
+Fitness_best_solution:  7.263272269634352
+Exec time:  11.889538049697876
+Fitness_best_solution:  6.384807968259686
+Exec time:  15.212789297103882
+Fitness_best_solution:  4.872813220418897
+Exec time:  10.208489179611206
+Fitness_best_solution:  5.926654319374977
+Exec time:  10.650210618972778
+Fitness_best_solution:  7.529553314443229
+Exec time:  11.677505016326904
+Fitness_best_solution:  3.151999868535111
+Exec time:  9.507495880126953
+Fitness_best_solution:  5.8355670336515875
+Exec time:  12.267339706420898
+Fitness_best_solution:  8.175893036240366
+Exec time:  8.996998071670532
+Fitness_best_solution:  5.942137378111085
+Exec time:  11.724096536636353
+Fitness_best_solution:  3.8914188654492357
+Exec time:  10.785761594772339
+Fitness_best_solution:  5.409206750382788
+Exec time:  8.959066152572632
+Fitness_best_solution:  6.2460651810577215
+Exec time:  10.225033044815063
+Fitness_best_solution:  7.043879558468974
+Exec time:  10.200932264328003
+Fitness_best_solution:  5.268472874721066
+Exec time:  10.583829641342163
+Fitness_best_solution:  6.60514884653428
+Exec time:  10.318649053573608
+Fitness_best_solution:  6.122161513365351
+Exec time:  11.863160848617554
+Fitness_best_solution:  5.885380473071412
+Exec time:  10.57141637802124
+Fitness_best_solution:  5.507119662807828
+Exec time:  10.377809286117554
+Fitness_best_solution:  5.887993649813617
+Exec time:  9.83236289024353
+Fitness_best_solution:  4.754250805186475
+Exec time:  10.044972658157349
+Fitness_best_solution:  6.979687966053265
+Exec time:  13.639667510986328
+Fitness_best_solution:  6.26696528562265
+Exec time:  14.6478431224823
+Fitness_best_solution:  5.067233183208795
+Exec time:  9.45811128616333
+Fitness_best_solution:  6.147386544378681
+Exec time:  10.82627820968628
+Fitness_best_solution:  5.850866522274684
+Exec time:  10.156399488449097
+Fitness_best_solution:  5.84832275528841
+Exec time:  9.60750961303711
+Fitness_best_solution:  3.829034665102859
+Exec time:  9.638437747955322
+Fitness_best_solution:  7.987270275061673
+Exec time:  11.04200553894043
+Fitness_best_solution:  6.944266678263345
+Exec time:  12.37501072883606
+Fitness_best_solution:  6.4862578090264815
